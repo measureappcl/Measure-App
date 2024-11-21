@@ -5,28 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Measure - Login</title>
     
-    <!-- Restaurar los estilos -->
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="_js/auth.js"></script>
     
-    <!-- Script de prueba inline -->
-    <script>
-        console.log('Test de carga 1');
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Test de carga 2');
-            if (window.supabase) {
-                console.log('Supabase disponible');
-            } else {
-                console.error('Supabase no disponible');
-            }
-        });
-    </script>
+    <style>
+        /* Agregar estilos para el enlace de registro */
+        .register-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .register-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <!-- Restaurar las clases CSS originales -->
     <div class="login-container">
         <h1>Iniciar Sesión</h1>
         <form id="loginForm" class="login-form">
@@ -40,10 +38,13 @@
             </div>
             <button type="submit" class="btn-login">Iniciar Sesión</button>
         </form>
+        <!-- Agregar enlace de registro -->
+        <div class="register-link">
+            <p>¿No tienes una cuenta? <a href="register.html">Regístrate aquí</a></p>
+        </div>
     </div>
 
     <script>
-        console.log('Test de carga 3');
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             console.log('Formulario enviado');
