@@ -5,54 +5,42 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 export const supabase = createClient(supabaseUrl, supabaseKey, {
     auth: {
-        redirectTo: 'https://measureappcl.github.io/Measure-App/dashboard.html'
+        redirectTo: 'https://measureappcl.github.io/Measure-App/dashboard.html',
+        persistSession: true,
+        detectSessionInUrl: true
     }
 });
 
-// Esperar a que el DOM esté completamente cargado
-document.addEventListener('DOMContentLoaded', () => {
-    // Solo buscar el formulario si estamos en la página de login
-    if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
-        const loginForm = document.getElementById('loginForm');
-        
-        if (loginForm) {
-            loginForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
-                
-                const loginButton = document.getElementById('login-button');
-                if (loginButton) {
-                    loginButton.disabled = true;
-                }
+async function signInWithEmail() {
+    try {
+        console.log('Iniciando proceso de login...');
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
+        console.log('Intentando login con:', email);
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
 
-                try {
-                    const { data, error } = await supabase.auth.signInWithPassword({
-                        email,
-                        password
-                    });
-
-                    if (error) {
-                        throw error;
-                    }
-
-                    alert("Inicio de sesión exitoso");
-                    window.location.href = './dashboard.html';
-                } catch (error) {
-                    console.error("Error de inicio de sesión:", error);
-                    const errorDiv = document.getElementById('login-error');
-                    if (errorDiv) {
-                        errorDiv.textContent = "Error: " + error.message;
-                    }
-                } finally {
-                    if (loginButton) {
-                        loginButton.disabled = false;
-                    }
-                }
-            });
-        } else {
-            console.error('No se encontró el formulario de login');
+        if (error) {
+            console.error('Error de login:', error);
+            throw error;
         }
+
+        console.log('Login exitoso:', data);
+        window.location.href = 'https://measureappcl.github.io/Measure-App/dashboard.html';
+
+    } catch (error) {
+        console.error('Error en signInWithEmail:', error.message);
+        alert(error.message);
     }
+}
+
+// Verificar sesión al cargar
+window.addEventListener('load', async () => {
+    console.log('Verificando sesión...');
+    const { data: { session }, error } = await supabase.auth.getSession();
+    console.log('Sesión actual:', session);
+    if (error) console.error('Error al verificar sesión:', error);
 });
