@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cuestionarios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-2xl font-bold text-center mb-8">Sistema de Cuestionarios</h1>
+            
+            <div id="login-section" class="mb-8">
+                <h2 class="text-xl font-semibold mb-4">Iniciar Sesión</h2>
+                <form id="loginForm">
+                    <div class="mb-4">
+                        <label for="email" class="block mb-2">Correo Electrónico</label>
+                        <input type="email" id="email" required class="w-full p-2 border rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="block mb-2">Contraseña</label>
+                        <input type="password" id="password" required class="w-full p-2 border rounded">
+                    </div>
+                    <button type="submit" id="login-button" class="w-full bg-blue-500 text-white p-2 rounded">Iniciar Sesión</button>
+                </form>
+                <div id="login-error" class="text-red-500 mt-2"></div>
+            </div>
+
+            <div id="register-section">
+                <h2 class="text-xl font-semibold mb-4">Registrarse como Terapeuta</h2>
+                <form id="registerForm">
+                    <div class="mb-4">
+                        <label for="registerEmail" class="block mb-2">Correo Electrónico</label>
+                        <input type="email" id="registerEmail" required class="w-full p-2 border rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label for="registerPassword" class="block mb-2">Contraseña</label>
+                        <input type="password" id="registerPassword" required class="w-full p-2 border rounded">
+                    </div>
+                    <button type="submit" class="w-full bg-green-500 text-white p-2 rounded">Registrarse</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/+esm'
+    </script>
+    <script type="module" src="./_js/auth.js"></script>
+</body>
+</html>
