@@ -3,50 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Cuestionarios</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Measure - Login</title>
+    <!-- Asegúrate de que estos scripts estén en este orden -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        console.log('Página cargada');
+        // Verificar que Supabase esté disponible
+        if (window.supabase) {
+            console.log('Supabase está cargado');
+        } else {
+            console.error('Supabase no está cargado');
+        }
+    </script>
+    <script src="_js/auth.js"></script>
+    <script>
+        // Verificar que la función de login esté disponible
+        if (typeof signInWithEmail === 'function') {
+            console.log('Función de login está disponible');
+        } else {
+            console.error('Función de login no está disponible');
+        }
+    </script>
 </head>
 <body>
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
-            <h1 class="text-2xl font-bold text-center mb-8">Sistema de Cuestionarios</h1>
-            
-            <div id="login-section" class="mb-8">
-                <h2 class="text-xl font-semibold mb-4">Iniciar Sesión</h2>
-                <form id="loginForm">
-                    <div class="mb-4">
-                        <label for="email" class="block mb-2">Correo Electrónico</label>
-                        <input type="email" id="email" required class="w-full p-2 border rounded">
-                    </div>
-                    <div class="mb-4">
-                        <label for="password" class="block mb-2">Contraseña</label>
-                        <input type="password" id="password" required class="w-full p-2 border rounded">
-                    </div>
-                    <button type="submit" id="login-button" class="w-full bg-blue-500 text-white p-2 rounded">Iniciar Sesión</button>
-                </form>
-                <div id="login-error" class="text-red-500 mt-2"></div>
+    <div class="login-container">
+        <h1>Iniciar Sesión</h1>
+        <form onsubmit="event.preventDefault(); signInWithEmail();">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
             </div>
-
-            <div id="register-section">
-                <h2 class="text-xl font-semibold mb-4">Registrarse como Terapeuta</h2>
-                <form id="registerForm">
-                    <div class="mb-4">
-                        <label for="registerEmail" class="block mb-2">Correo Electrónico</label>
-                        <input type="email" id="registerEmail" required class="w-full p-2 border rounded">
-                    </div>
-                    <div class="mb-4">
-                        <label for="registerPassword" class="block mb-2">Contraseña</label>
-                        <input type="password" id="registerPassword" required class="w-full p-2 border rounded">
-                    </div>
-                    <button type="submit" class="w-full bg-green-500 text-white p-2 rounded">Registrarse</button>
-                </form>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" required>
             </div>
-        </div>
+            <button type="submit" onclick="console.log('Botón clickeado');">Iniciar Sesión</button>
+        </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/+esm'
-    </script>
-    <script type="module" src="./_js/auth.js"></script>
 </body>
 </html>
