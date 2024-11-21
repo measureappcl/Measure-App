@@ -27,15 +27,12 @@
     </div>
 
     <script>
-        // Esperar a que se cargue el script de Supabase
         window.onload = function() {
             const SUPABASE_URL = 'https://qxnvxkfvypqnaqmuhsrj.supabase.co';
             const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4bnZ4a2Z2eXBxbmFxbXVoc3JqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc0MjY5NzAsImV4cCI6MjAyMzAwMjk3MH0.Yx0eLKUiB-vfWF8P8hy_v-5HqVuDqR_rY5X5H_Gjxwk';
 
-            // Crear el cliente de Supabase
             const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-            // Manejar el registro
             document.getElementById('registerForm').addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
