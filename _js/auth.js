@@ -37,6 +37,32 @@ async function signInWithEmail() {
     }
 }
 
+async function signUpWithEmail() {
+    try {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        console.log('Iniciando registro con:', email);
+        
+        const { data, error } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                emailRedirectTo: 'https://measureappcl.github.io/Measure-App/dashboard.html'
+            }
+        });
+
+        if (error) throw error;
+
+        alert('Registro exitoso. Por favor verifica tu email para confirmar la cuenta.');
+        window.location.href = 'index.html';
+
+    } catch (error) {
+        console.error('Error en registro:', error.message);
+        alert(error.message);
+    }
+}
+
 // Verificar sesión al cargar
 window.addEventListener('load', async () => {
     console.log('Verificando sesión...');
