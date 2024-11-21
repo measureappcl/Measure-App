@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Measure - Login</title>
     
-    <!-- Scripts con rutas correctas -->
+    <!-- Restaurar los estilos -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="_js/auth.js"></script>
     
@@ -14,7 +17,6 @@
         console.log('Test de carga 1');
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Test de carga 2');
-            // Verificar Supabase
             if (window.supabase) {
                 console.log('Supabase disponible');
             } else {
@@ -24,22 +26,22 @@
     </script>
 </head>
 <body>
+    <!-- Restaurar las clases CSS originales -->
     <div class="login-container">
         <h1>Iniciar Sesión</h1>
-        <form id="loginForm">
+        <form id="loginForm" class="login-form">
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" required>
+                <input type="email" id="email" required class="form-control">
             </div>
             <div class="form-group">
                 <label for="password">Contraseña:</label>
-                <input type="password" id="password" required>
+                <input type="password" id="password" required class="form-control">
             </div>
-            <button type="submit">Iniciar Sesión</button>
+            <button type="submit" class="btn-login">Iniciar Sesión</button>
         </form>
     </div>
 
-    <!-- Script adicional al final del body -->
     <script>
         console.log('Test de carga 3');
         document.getElementById('loginForm').addEventListener('submit', function(e) {
