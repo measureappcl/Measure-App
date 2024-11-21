@@ -131,8 +131,8 @@ async function enviarCuestionario(emailPaciente, tipoCuestionario) {
 
         if (dbError) throw dbError;
 
-        // Usar la URL de GitHub Pages
-        const baseUrl = 'https://measureappcl.github.io/measure-app';
+        // Actualizar a la nueva URL (con M mayúscula)
+        const baseUrl = 'https://measureappcl.github.io/Measure-App';
         const linkCuestionario = `${baseUrl}/patient_form.html?token=${token}`;
         
         const { error: emailError } = await supabase.functions.invoke('send-email', {
