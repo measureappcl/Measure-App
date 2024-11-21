@@ -119,7 +119,6 @@ function setupQuestionnaireForm() {
 
 async function enviarCuestionario(emailPaciente, tipoCuestionario) {
     try {
-        // Generar token y guardar en BD
         const token = generateUUID();
         const { error: dbError } = await supabase
             .from('cuestionarios_pendientes')
@@ -132,26 +131,23 @@ async function enviarCuestionario(emailPaciente, tipoCuestionario) {
 
         if (dbError) throw dbError;
 
-        // Construir el link
-        const linkCuestionario = `${window.location.origin}/patient_form.html?token=${token}`;
+        // Usar la URL de GitHub Pages
+        const baseUrl = 'https://measureappcl.github.io/measure-app';
+        const linkCuestionario = `${baseUrl}/patient_form.html?token=${token}`;
         
-        // Enviar el correo usando la función Edge
-        const { data, error: emailError } = await supabase.functions.invoke(
-            'send-email',
-            {
-                body: {
-                    to: emailPaciente,
-                    subject: 'Cuestionario de Salud Mental',
-                    html: `
-                        <h2>Cuestionario de Salud Mental</h2>
-                        <p>Se le ha asignado un cuestionario para completar.</p>
-                        <p>Por favor, haga clic en el siguiente enlace para acceder al cuestionario:</p>
-                        <a href="${linkCuestionario}">Completar Cuestionario</a>
-                        <p>Este enlace expirará en 24 horas.</p>
-                    `
-                }
+        const { error: emailError } = await supabase.functions.invoke('send-email', {
+            body: {
+                to: emailPaciente,
+                subject: 'Cuestionario de Salud Mental',
+                html: `
+                    <h2>Cuestionario de Salud Mental</h2>
+                    <p>Se le ha asignado un cuestionario para completar.</p>
+                    <p>Por favor, haga clic en el siguiente enlace para acceder al cuestionario:</p>
+                    <a href="${linkCuestionario}">Completar Cuestionario</a>
+                    <p>Este enlace expirará en 24 horas.</p>
+                `
             }
-        );
+        });
 
         if (emailError) throw emailError;
         alert('Cuestionario enviado correctamente');
