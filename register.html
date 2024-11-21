@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Measure - Registro</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <div class="login-container">
@@ -26,38 +25,43 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const supabase = supabase.createClient(
-            'https://qxnvxkfvypqnaqmuhsrj.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4bnZ4a2Z2eXBxbmFxbXVoc3JqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc0MjY5NzAsImV4cCI6MjAyMzAwMjk3MH0.Yx0eLKUiB-vfWF8P8hy_v-5HqVuDqR_rY5X5H_Gjxwk'
-        );
+        // Esperar a que el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Crear el cliente de Supabase
+            const supabaseUrl = 'https://qxnvxkfvypqnaqmuhsrj.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4bnZ4a2Z2eXBxbmFxbXVoc3JqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc0MjY5NzAsImV4cCI6MjAyMzAwMjk3MH0.Yx0eLKUiB-vfWF8P8hy_v-5HqVuDqR_rY5X5H_Gjxwk';
+            const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-        document.getElementById('registerForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            try {
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-
-                console.log('Iniciando registro con:', email);
+            // Manejar el registro
+            document.getElementById('registerForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
                 
-                const { data, error } = await supabase.auth.signUp({
-                    email: email,
-                    password: password,
-                    options: {
-                        emailRedirectTo: 'https://measureappcl.github.io/Measure-App/dashboard.html'
-                    }
-                });
+                try {
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
 
-                if (error) throw error;
+                    console.log('Iniciando registro con:', email);
+                    
+                    const { data, error } = await supabaseClient.auth.signUp({
+                        email: email,
+                        password: password,
+                        options: {
+                            emailRedirectTo: 'https://measureappcl.github.io/Measure-App/dashboard.html'
+                        }
+                    });
 
-                alert('Registro exitoso. Por favor verifica tu email para confirmar la cuenta.');
-                window.location.href = 'index.html';
+                    if (error) throw error;
 
-            } catch (error) {
-                console.error('Error en registro:', error.message);
-                alert(error.message);
-            }
+                    alert('Registro exitoso. Por favor verifica tu email para confirmar la cuenta.');
+                    window.location.href = 'index.html';
+
+                } catch (error) {
+                    console.error('Error en registro:', error.message);
+                    alert(error.message);
+                }
+            });
         });
     </script>
 </body>
