@@ -4,25 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Measure - Login</title>
-    
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="_js/auth.js"></script>
-    
-    <style>
-        /* Agregar estilos para el enlace de registro */
-        .register-link {
-            text-align: center;
-            margin-top: 1rem;
-        }
-        .register-link a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <div class="login-container">
@@ -38,21 +21,41 @@
             </div>
             <button type="submit" class="btn-login">Iniciar Sesión</button>
         </form>
-        <!-- Agregar enlace de registro -->
         <div class="register-link">
             <p>¿No tienes una cuenta? <a href="register.html">Regístrate aquí</a></p>
         </div>
     </div>
 
     <script>
+        const supabaseUrl = 'https://qxnvxkfvypqnaqmuhsrj.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4bnZ4a2Z2eXBxbmFxbXVoc3JqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc0MjY5NzAsImV4cCI6MjAyMzAwMjk3MH0.Yx0eLKUiB-vfWF8P8hy_v-5HqVuDqR_rY5X5H_Gjxwk';
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+        async function signInWithEmail() {
+            try {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                console.log('Iniciando sesión con:', email);
+                
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) throw error;
+
+                window.location.href = 'dashboard.html';
+
+            } catch (error) {
+                console.error('Error en inicio de sesión:', error.message);
+                alert(error.message);
+            }
+        }
+
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            console.log('Formulario enviado');
-            if (typeof signInWithEmail === 'function') {
-                signInWithEmail();
-            } else {
-                console.error('Función signInWithEmail no encontrada');
-            }
+            signInWithEmail();
         });
     </script>
 </body>
